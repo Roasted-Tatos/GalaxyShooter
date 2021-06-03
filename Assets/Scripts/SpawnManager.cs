@@ -9,6 +9,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     public GameObject _enemyPrefab2;
     [SerializeField]
+    public GameObject[] missles;
+    [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] powerUps;
@@ -27,6 +29,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerUpRoutine());
         StartCoroutine(SpawnEnemy2Routine());
+        StartCoroutine(SpawnMisslesRoutine());
     }
 
     // Update is called once per frame
@@ -70,6 +73,17 @@ public class SpawnManager : MonoBehaviour
             int randomPowerUp = Random.Range(0, 3);
             Instantiate(powerUps[randomPowerUp], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3f,8f));
+        }
+    }
+
+    IEnumerator SpawnMisslesRoutine()
+    {
+        yield return new WaitForSeconds(60f);
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Instantiate(missles[0], posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }
 

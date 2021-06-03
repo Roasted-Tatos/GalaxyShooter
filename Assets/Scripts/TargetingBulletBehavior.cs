@@ -8,6 +8,10 @@ public class TargetingBulletBehavior : MonoBehaviour
     private float _movementspeed = 7f;
     [SerializeField]
     private AudioSource _dmgSound;
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    private Animator _Explosion;
 
     private Rigidbody2D _rb;
     private Player _target;
@@ -20,6 +24,8 @@ public class TargetingBulletBehavior : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _target = GameObject.Find("Player").GetComponent<Player>();
         _dmgSound = GetComponent<AudioSource>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _Explosion = GetComponent<Animator>();
         moveDirection = (_target.transform.position - transform.position).normalized * _movementspeed;
         _rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
         Destroy(this.gameObject, 4f);
@@ -30,7 +36,9 @@ public class TargetingBulletBehavior : MonoBehaviour
         {
             _target.Damage();
             _dmgSound.Play();
-            Destroy(this.gameObject,0.8f);
+            _spriteRenderer.enabled = false;
+            _Explosion.SetTrigger("OnImpact");
+            Destroy(this.gameObject,3f);
         }
         
     }

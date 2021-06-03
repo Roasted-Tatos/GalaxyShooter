@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     [SerializeField]
     private bool _shieldsActive = false;
+    [SerializeField]
+    private SpriteRenderer _shieldRenderer;
+    private int _shieldStrenght = 3;
     
     //[SerializeField]
     //private bool _isSpeedActive = false;
@@ -173,13 +176,28 @@ public class Player : MonoBehaviour
 
     public void  Damage()
     {
-        if (_shieldsActive == true)
+        if (_shieldsActive == true && _shieldStrenght >=1)
         {
-            _shieldsActive = false;
-            _Shields.enabled = false;
+            _shieldStrenght --;
+            switch (_shieldStrenght)
+            {
+                case 0:
+                    _shieldsActive = false;
+                    _Shields.enabled = false;
+                    break;
+                case 1:
+                    _shieldRenderer.color = Color.red;
+                    break;
+                case 2:
+                    _shieldRenderer.color = Color.yellow;
+                    break;
+                default:
+                    Debug.Log("Default value");
+                    break;
+            }
             return;
         }
-
+        _shieldStrenght = 3;
         _lives -= 1;
         _cameraShake.StartShaking();
 
@@ -233,6 +251,8 @@ public class Player : MonoBehaviour
     {
         _Shields.enabled = true;
         _shieldsActive = true;
+        _shieldRenderer.color = Color.white;
+        _shieldStrenght = 3;
     }
 
     public void GetPoints(int points)

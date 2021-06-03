@@ -28,10 +28,18 @@ public class Enemy_groundFire : MonoBehaviour
     {
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(0.5f, 1f);
+            _fireRate = Random.Range(0.8f, 1f);
             _canFire = Time.time + _fireRate;
             Instantiate(_laserPrefab, transform.position, Quaternion.identity);
             _fireSound.Play();
         }
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            BunkerFire();
+        }
+
     }
 }
