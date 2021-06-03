@@ -5950,7 +5950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479244946239512580, guid: 4881489cea2623b44bcb4be7bc25d8df, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 479244946239512583, guid: 4881489cea2623b44bcb4be7bc25d8df, type: 3}
       propertyPath: m_RootOrder
@@ -9621,6 +9621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 5645866851055404124, guid: 62015a7bc684b3842b53f2fe2425ce15, type: 3}
   _enemyPrefab2: {fileID: 4965200238230425401, guid: fca20e465e2622e4da6be08faa0c5eb4, type: 3}
+  missles: []
   _enemyContainer: {fileID: 784742423}
   powerUps:
   - {fileID: 4197382552425415741, guid: 7854c74b38fc43c4db2e801866ef003d, type: 3}

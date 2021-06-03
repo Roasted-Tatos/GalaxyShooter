@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MoonBase.unity
     guid: b9d6c7fa079fa9949a1c0494081c767b
+  - enabled: 1
+    path: Assets/Scenes/EndGame.unity
+    guid: 57420f8497c5e2c43bd223b18b871144
   m_configObjects: {}
