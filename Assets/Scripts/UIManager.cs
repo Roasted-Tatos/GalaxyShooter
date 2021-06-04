@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
     private Text _gameoverText;
     [SerializeField]
     private Text _restartLevel;
+    [SerializeField]
+    private Image _thrusterBar;
+    private float _maxEnergy = 100f;
 
     private GameManager _gameManager;
 
@@ -51,5 +54,10 @@ public class UIManager : MonoBehaviour
         _gameoverText.gameObject.SetActive(true);
         _restartLevel.gameObject.SetActive(true);
         _gameManager.GameOver();
+    }
+    public void UpdateEnergyStatus(float value)
+    {
+        float amount = value / _maxEnergy;
+        _thrusterBar.fillAmount = amount;
     }
 }

@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private float _speed = 5f;
     [SerializeField]
     private float _speedIncrease = 2f;
+    [SerializeField]
+    private float _thrusterEnergy = 100f;
 
     [SerializeField]
     private Animator _anim;
@@ -131,8 +133,19 @@ public class Player : MonoBehaviour
         //Axis Variable
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        Vector3 Direction = new Vector3(horizontalInput, verticalInput, 0);
         //movement
-        transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _speed * Time.deltaTime);
+        if(Input.GetKey(KeyCode.LeftShift) && _thrusterEnergy > 0f)
+        {
+            transform.Translate(Direction * _speed *_speedIncrease* Time.deltaTime);
+            _thrusterEnergy -= 0.5f;
+            _uiManager.UpdateEnergyStatus(_thrusterEnergy);
+        }
+        else
+        {
+            transform.Translate(Direction * _speed * Time.deltaTime);
+        }
+        
         
        
         
@@ -236,15 +249,24 @@ public class Player : MonoBehaviour
 
     public void SpeedActive()
     {
-       // _isSpeedActive = true;
-        _speed *= _speedIncrease;
+        // _isSpeedActive = true;
+        //_speed *= _speedIncrease;
+        if(_thrusterEnergy >= 100f)
+        {
+            _thrusterEnergy = 100f;
+        }
+        else 
+        {
+            _thrusterEnergy = 100f;
+        }
+        _uiManager.UpdateEnergyStatus(_thrusterEnergy);
         StartCoroutine(SpeedPowerDownRoutine());
     }
     IEnumerator SpeedPowerDownRoutine()
     {
         yield return new WaitForSeconds(5);
        // _isSpeedActive = false;
-        _speed /= _speedIncrease;
+        //_speed /= _speedIncrease;
     }
 
     public void ShieldisActive()

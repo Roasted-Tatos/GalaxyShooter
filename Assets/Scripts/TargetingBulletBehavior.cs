@@ -28,6 +28,9 @@ public class TargetingBulletBehavior : MonoBehaviour
         _Explosion = GetComponent<Animator>();
         moveDirection = (_target.transform.position - transform.position).normalized * _movementspeed;
         _rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+    }
+    private void Update()
+    {
         Destroy(this.gameObject, 4f);
     }
     public void OnTriggerEnter2D(Collider2D other)
