@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
     private Image _thrusterBar;
     private float _maxEnergy = 100f;
 
+    [SerializeField]
+    private Text _ammoText;
+
     private GameManager _gameManager;
 
     // Start is called before the first frame update
@@ -27,6 +30,7 @@ public class UIManager : MonoBehaviour
     {
         //Starting score text, set to zero
         _scoreText.text = "Score: " + 0;
+        _ammoText.text = 50.ToString();
         _gameoverText.gameObject.SetActive(false);
         _restartLevel.gameObject.SetActive(false);
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -47,6 +51,10 @@ public class UIManager : MonoBehaviour
     {
         _LivesImageHandle.sprite = _liveSprites[currentLives];
 
+    }
+    public void UpdateAmmo (int playerAmmo)
+    {
+        _ammoText.text = playerAmmo.ToString();
     }
 
     public void GameOver()

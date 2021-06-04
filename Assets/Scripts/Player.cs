@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     //PowerUps
     [SerializeField]
+    private int _ammoCount = 50;
+    [SerializeField]
     private GameObject _laser;
     [SerializeField]
     private GameObject _TripleShot;
@@ -108,6 +110,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && Time.time > _canFire)
         {
+            if (_ammoCount ==0)
+            {
+                return;
+            }
             FireLaser();
         }
 
@@ -142,7 +148,7 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift) && _thrusterEnergy > 0f)
         {
             transform.Translate(Direction * _speed *_speedIncrease* Time.deltaTime);
-            _thrusterEnergy -= 0.5f;
+            _thrusterEnergy -= 0.1f;
             _uiManager.UpdateEnergyStatus(_thrusterEnergy);
             _AfterBurnerLeft.SetActive(true);
             _AfterBurnerRight.SetActive(true);
@@ -179,7 +185,7 @@ public class Player : MonoBehaviour
     }
     void FireLaser()
     {
-        
+        AmmoCount(-1);
             _canFire = Time.time + _fireRate;
 
         if (_isTripleShotActive == true)
@@ -193,6 +199,19 @@ public class Player : MonoBehaviour
 
         _laserSound.Play();
         
+    }
+
+    public void AmmoCount(int bullets)
+    {
+        if(bullets >= _ammoCount)
+        {
+            _ammoCount = 50;
+        }
+        else
+        {
+            _ammoCount += bullets;
+        }
+        _uiManager.UpdateAmmo(_ammoCount);
     }
 
     public void  Damage()
