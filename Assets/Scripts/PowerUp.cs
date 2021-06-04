@@ -54,6 +54,9 @@ public class PowerUp : MonoBehaviour
                     _player.ShieldisActive();
                    
                     break;
+                case 3:
+                    _player.restoreHealth(3);
+                    break;
                 default:
                     Debug.Log("Default value");
                     break;

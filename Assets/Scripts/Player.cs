@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private float _speedIncrease = 2f;
     [SerializeField]
     private float _thrusterEnergy = 100f;
+    [SerializeField]
+    private GameObject _AfterBurnerLeft, _AfterBurnerRight;
 
     [SerializeField]
     private Animator _anim;
@@ -82,6 +84,8 @@ public class Player : MonoBehaviour
         _rightEngine.SetActive(false);
         _screenCrack1.SetActive(false);
         _screenCrack2.SetActive(false);
+        _AfterBurnerLeft.SetActive(false);
+        _AfterBurnerRight.SetActive(false);
 
         //Finding the Spawn Manager
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
@@ -140,10 +144,14 @@ public class Player : MonoBehaviour
             transform.Translate(Direction * _speed *_speedIncrease* Time.deltaTime);
             _thrusterEnergy -= 0.5f;
             _uiManager.UpdateEnergyStatus(_thrusterEnergy);
+            _AfterBurnerLeft.SetActive(true);
+            _AfterBurnerRight.SetActive(true);
         }
         else
         {
             transform.Translate(Direction * _speed * Time.deltaTime);
+            _AfterBurnerLeft.SetActive(false);
+            _AfterBurnerRight.SetActive(false);
         }
         
         
@@ -275,6 +283,21 @@ public class Player : MonoBehaviour
         _shieldsActive = true;
         _shieldRenderer.color = Color.white;
         _shieldStrenght = 3;
+    }
+
+    public void restoreHealth(int healingPoints)
+    {
+        if(healingPoints >= _lives)
+        {
+            _lives = 3;
+        }
+        else
+        {
+            _lives += healingPoints;
+        }
+        _uiManager.UpdateLives(_lives);
+        _rightEngine.SetActive(false);
+        _leftEngine.SetActive(false);
     }
 
     public void GetPoints(int points)
