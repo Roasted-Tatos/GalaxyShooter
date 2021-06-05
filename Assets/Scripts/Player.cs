@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _ammoCount = 50;
     [SerializeField]
+    private SpriteRenderer _ammoRenderer;
+    [SerializeField]
     private GameObject _laser;
     [SerializeField]
     private GameObject _TripleShot;
@@ -204,7 +206,7 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
         AmmoCount(-1);
-            _canFire = Time.time + _fireRate;
+        _canFire = Time.time + _fireRate;
 
         if (_isTripleShotActive == true)
         {
@@ -224,11 +226,13 @@ public class Player : MonoBehaviour
         if(bullets >= _ammoCount)
         {
             _ammoCount = 50;
+            
         }
         else
         {
             _ammoCount += bullets;
         }
+        
         _uiManager.UpdateAmmo(_ammoCount);
     }
 

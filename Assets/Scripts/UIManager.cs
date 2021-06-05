@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     private Sprite[] _liveSprites;
 
     [SerializeField]
+    private Image _ammoRenderer;
+
+    [SerializeField]
     private Image _specialPowerUPHandle;
     [SerializeField]
     private Sprite[] _specialPowerUPSprites;
@@ -66,6 +69,22 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo (int playerAmmo)
     {
         _ammoText.text = playerAmmo.ToString();
+        if (playerAmmo == 0)
+        {
+            switch (playerAmmo)
+            {
+                case 0:
+                    _ammoRenderer.color = Color.red;
+                    break;
+                default:
+                    Debug.Log("Default value");
+                    break;
+            }
+        }
+        else
+        {
+            _ammoRenderer.color = Color.white;
+        }
     }
 
     public void GameOver()
