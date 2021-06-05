@@ -12,6 +12,12 @@ public class UIManager : MonoBehaviour
     private Image _LivesImageHandle;
     [SerializeField]
     private Sprite[] _liveSprites;
+
+    [SerializeField]
+    private Image _specialPowerUPHandle;
+    [SerializeField]
+    private Sprite[] _specialPowerUPSprites;
+
     [SerializeField]
     private Text _gameoverText;
     [SerializeField]
@@ -52,6 +58,11 @@ public class UIManager : MonoBehaviour
         _LivesImageHandle.sprite = _liveSprites[currentLives];
 
     }
+    public void UpdateSpecialPower(int currentpower)
+    {
+        _specialPowerUPHandle.sprite = _specialPowerUPSprites[currentpower];
+    }
+
     public void UpdateAmmo (int playerAmmo)
     {
         _ammoText.text = playerAmmo.ToString();

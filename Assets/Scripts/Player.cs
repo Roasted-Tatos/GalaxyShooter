@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
     private int _shieldStrenght = 3;
+    [SerializeField]
+    private GameObject _SpecialLaserBeam;
+    [SerializeField]
+    private int _specialPower = 3;
     
     //[SerializeField]
     //private bool _isSpeedActive = false;
@@ -65,6 +69,8 @@ public class Player : MonoBehaviour
     //Audio
     [SerializeField]
     private AudioSource _laserSound;
+    [SerializeField]
+    private AudioSource _beamSound;
     
    
     
@@ -88,6 +94,8 @@ public class Player : MonoBehaviour
         _screenCrack2.SetActive(false);
         _AfterBurnerLeft.SetActive(false);
         _AfterBurnerRight.SetActive(false);
+        //_chargingGlow.SetActive(false);
+        _SpecialLaserBeam.SetActive(false);
 
         //Finding the Spawn Manager
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
@@ -107,6 +115,16 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+
+        if (Input.GetKey(KeyCode.E) && Time.time > _canFire)
+        {
+            if (_specialPower == 0)
+            {
+                return;
+            }
+            SpecialFire();
+        }
+
 
         if (Input.GetKey(KeyCode.Space) && Time.time > _canFire)
         {
@@ -174,13 +192,13 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(transform.position.x, -3.37f, 0);
         }
 
-        if (transform.position.x >= 11.2f)
+        if (transform.position.x >= 9.2f)
         {
-            transform.position = new Vector3(-11.2f, transform.position.y, 0);
+            transform.position = new Vector3(9.2f, transform.position.y, 0);
         }
-        else if (transform.position.x <= -11.2f)
+        else if (transform.position.x <= -9f)
         {
-            transform.position = new Vector3(11.2f, transform.position.y, 0);
+            transform.position = new Vector3(-9f, transform.position.y, 0);
         }
     }
     void FireLaser()
@@ -214,6 +232,35 @@ public class Player : MonoBehaviour
         _uiManager.UpdateAmmo(_ammoCount);
     }
 
+    public void SpecialFire()
+    {
+      
+        StartCoroutine(SpecialBeamFireRoutine());
+        SpecialBeamCount(-1);
+        _canFire = Time.time + _fireRate;
+        _beamSound.Play();
+
+    }
+    public void SpecialBeamCount(int beams)
+    {
+        if(beams >=_specialPower)
+        {
+            _specialPower = 3;
+        }
+        else
+        {
+            _specialPower += beams;
+        }
+        _uiManager.UpdateSpecialPower(_specialPower);
+    }
+
+    IEnumerator SpecialBeamFireRoutine()
+    {
+        _SpecialLaserBeam.SetActive(true);
+        yield return new WaitForSeconds(4.5f);
+        _SpecialLaserBeam.SetActive(false);
+    }
+
     public void  Damage()
     {
         if (_shieldsActive == true && _shieldStrenght >=1)
@@ -229,7 +276,7 @@ public class Player : MonoBehaviour
                     _shieldRenderer.color = Color.red;
                     break;
                 case 2:
-                    _shieldRenderer.color = Color.yellow;
+                    _shieldRenderer.color = Color.blue;
                     break;
                 default:
                     Debug.Log("Default value");
@@ -276,8 +323,7 @@ public class Player : MonoBehaviour
 
     public void SpeedActive()
     {
-        // _isSpeedActive = true;
-        //_speed *= _speedIncrease;
+       
         if(_thrusterEnergy >= 100f)
         {
             _thrusterEnergy = 100f;
@@ -287,14 +333,9 @@ public class Player : MonoBehaviour
             _thrusterEnergy = 100f;
         }
         _uiManager.UpdateEnergyStatus(_thrusterEnergy);
-        StartCoroutine(SpeedPowerDownRoutine());
+       
     }
-    IEnumerator SpeedPowerDownRoutine()
-    {
-        yield return new WaitForSeconds(5);
-       // _isSpeedActive = false;
-        //_speed /= _speedIncrease;
-    }
+   
 
     public void ShieldisActive()
     {
@@ -324,6 +365,8 @@ public class Player : MonoBehaviour
         _score += points;
         _uiManager.UpdateScore(_score);
     }
+
+  
 
     //Screen Crack Routine
     IEnumerator CrackScreenRoutine1()

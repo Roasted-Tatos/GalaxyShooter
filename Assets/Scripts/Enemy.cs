@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
     private float _canFire = -1f;
     private float _fireRate = 2f;
 
+    private bool _isAlive = true;
+
    
 
     void Start()
@@ -50,10 +52,21 @@ public class Enemy : MonoBehaviour
         {
             _fireRate = Random.Range(2f, 4f);
             _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            FireLaser();
             _fireSound.Play();
         }
        
+    }
+    public void FireLaser()
+    {
+        if(_isAlive == true)
+        {
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            return;
+        }
     }
 
     void EnemeyMovement()
@@ -73,16 +86,33 @@ public class Enemy : MonoBehaviour
         {
             if (_player != null)
             {
-                _player.GetPoints(10);
+                _player.GetPoints(100);
             }
+            _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
             _explosionSound.Play();
             _speed = 0.2f;
             _boxCollider.enabled = (false);
             Destroy(other.gameObject);
             Destroy(this.gameObject,2.0f);
+            
         }
-       
+
+        if (other.gameObject.tag == "Beam")
+        {
+            if (_player != null)
+            {
+                _player.GetPoints(100);
+            }
+            _isAlive = false;
+            _anim.SetTrigger("OnEnemyDeath");
+            _explosionSound.Play();
+            _speed = 0.2f;
+            _boxCollider.enabled = (false);
+            Destroy(this.gameObject, 2.0f);
+
+        }
+
         if (other.gameObject.tag == "Player")
         {
             //Storing the player component in a variable
@@ -93,11 +123,13 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
+            _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
             _explosionSound.Play();
             _boxCollider.enabled = (false);
             _speed = 0;
             Destroy(this.gameObject,2.8f);
+            
         }
     }
 }

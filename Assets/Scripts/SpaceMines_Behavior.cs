@@ -41,6 +41,14 @@ public class SpaceMines_Behavior : MonoBehaviour
             Destroy(this.gameObject, 2.3f);
 
         }
+        if (other.gameObject.tag == "Beam")
+        {
+            _explosionAnim.SetBool("Explosion", true);
+            _explosionSound.Play();
+            _collider.enabled = false;
+            Destroy(this.gameObject, 2.3f);
+
+        }
 
         if (other.gameObject.tag == "Player")
         {

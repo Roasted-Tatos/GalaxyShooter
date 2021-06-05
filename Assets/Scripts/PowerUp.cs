@@ -60,6 +60,9 @@ public class PowerUp : MonoBehaviour
                 case 4:
                     _player.AmmoCount(50);
                     break;
+                case 5:
+                    _player.SpecialBeamCount(3);
+                    break;
                 default:
                     Debug.Log("Default value");
                     break;
