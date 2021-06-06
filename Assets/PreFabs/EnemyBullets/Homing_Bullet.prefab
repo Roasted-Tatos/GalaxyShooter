@@ -158,8 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementspeed: 6
   _dmgSound: {fileID: 153217066633880313}
-  _spriteRenderer: {fileID: 0}
-  _Explosion: {fileID: 0}
+  _spriteRenderer: {fileID: 3212623025636794949}
+  _Explosion: {fileID: 2169358279785797211}
 --- !u!82 &153217066633880313
 AudioSource:
   m_ObjectHideFlags: 0

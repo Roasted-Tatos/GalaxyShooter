@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1773690016555325201}
   - component: {fileID: 1773690016555325205}
   - component: {fileID: 1773690016555325206}
+  - component: {fileID: 4863938159330980139}
   m_Layer: 0
   m_Name: MoonBaseBunker
   m_TagString: Untagged
@@ -244,6 +245,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &4863938159330980139
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773690016555325203}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 647f7b6ab44ee204381fa6d85bcad40b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1773690017326742881
 GameObject:
   m_ObjectHideFlags: 0

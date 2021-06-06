@@ -8,7 +8,8 @@ public class Enemy_groundFire : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private AudioSource _fireSound;
-
+    [SerializeField]
+    private Animator _explosion;
 
     private float _canFire = -1f;
     private float _fireRate = 1f;
@@ -16,7 +17,7 @@ public class Enemy_groundFire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _explosion = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -39,6 +40,11 @@ public class Enemy_groundFire : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             BunkerFire();
+        }
+        if(other.gameObject.tag == "Beam")
+        {
+            _explosion.SetTrigger("OnImpact");
+            Destroy(this.gameObject,1f);
         }
 
     }
