@@ -1,6 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 51529d681373d9142b142a98839929fa
 NativeFormatImporter:
+=======
+<<<<<<< HEAD:Assets/PreFabs/EnemyBullets/Missle.prefab.meta
+guid: 37e824bf430a00742a5917cffab7fd53
+PrefabImporter:
+=======
+guid: 51529d681373d9142b142a98839929fa
+NativeFormatImporter:
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e:Assets/Animation/Targeting_Bullet_Explosion.anim.meta
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
   externalObjects: {}
   mainObjectFileID: 7400000
   userData: 

@@ -8,6 +8,7 @@ public class Targeting_Missle : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private float _speed = 3f;
+<<<<<<< HEAD
     [SerializeField]
     private BoxCollider2D _collider;
 
@@ -15,6 +16,8 @@ public class Targeting_Missle : MonoBehaviour
     private Animator _explosion;
     [SerializeField]
     private AudioSource _explosionSound;
+=======
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
 
     private bool _isAlive = true;
     private BoxCollider2D _boxCollider;
@@ -24,11 +27,14 @@ public class Targeting_Missle : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         _player = GameObject.Find("Player").GetComponent<Player>();
+<<<<<<< HEAD
         player = GameObject.Find("Player").transform.GetComponent<Transform>();
         _explosion = GetComponent<Animator>();
         _explosionSound = GetComponent<AudioSource>();
         //_collider.enabled = true;
         _collider.GetComponent<BoxCollider2D>();
+=======
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
     }
 
     // Update is called once per frame
@@ -54,11 +60,19 @@ public class Targeting_Missle : MonoBehaviour
             {
                 _player.GetPoints(100);
             }
+<<<<<<< HEAD
 
             _explosion.SetTrigger("OnImpact");
             _explosionSound.Play();
             _speed = 0f;
             _collider.enabled = (false);
+=======
+            
+            //_anim.SetTrigger("OnEnemyDeath");
+            //_explosionSound.Play();
+            _speed = 0f;
+            //_boxCollider.enabled = (false);
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
             Destroy(other.gameObject);
             Destroy(this.gameObject, 2.0f);
 
@@ -69,11 +83,18 @@ public class Targeting_Missle : MonoBehaviour
             {
                 _player.GetPoints(100);
             }
+<<<<<<< HEAD
 
             _explosion.SetTrigger("OnImpact");
             _explosionSound.Play();
             _speed = 0.2f;
             _collider.enabled = false;
+=======
+            
+            
+            //_explosionSound.Play();
+            _speed = 0.2f;
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
             _boxCollider.enabled = (false);
             Destroy(this.gameObject, 2.0f);
 
@@ -89,10 +110,17 @@ public class Targeting_Missle : MonoBehaviour
             {
                 player.Damage();
             }
+<<<<<<< HEAD
 
             _explosion.SetTrigger("OnImpact");
             _explosionSound.Play();
             _collider.enabled = (false);
+=======
+            
+            
+            //_explosionSound.Play();
+            //_boxCollider.enabled = (false);
+>>>>>>> 1f3e98cb72af271c41df83d2c24b9dbac341938e
             _speed = 0;
             Destroy(this.gameObject, 2.8f);
 
