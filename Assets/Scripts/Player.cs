@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Animator _anim;
 
+    [SerializeField]
+    private Animator _backgroundScroll;
+    [SerializeField]
+    private GameObject _player;
+
     //PowerUps
     [SerializeField]
     private int _ammoCount = 50;
@@ -89,6 +94,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("UI manager not found");
         }
+        
 
         _leftEngine.SetActive(false);
         _rightEngine.SetActive(false);
@@ -111,12 +117,14 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("camera shake script not foudn");
         }
+        _backgroundScroll = GameObject.Find("Background").GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
+        _backgroundScroll.speed = 1;
 
         if (Input.GetKey(KeyCode.E) && Time.time > _canFire)
         {
@@ -130,7 +138,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && Time.time > _canFire)
         {
-            if (_ammoCount ==0)
+            if (_ammoCount ==0 && _lives >=1)
             {
                 return;
             }
@@ -205,6 +213,7 @@ public class Player : MonoBehaviour
     }
     void FireLaser()
     {
+
         AmmoCount(-1);
         _canFire = Time.time + _fireRate;
 
@@ -309,8 +318,10 @@ public class Player : MonoBehaviour
         if (_lives <1)
         {
             _spawnManager.OnPlayerDeath();
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            _player.SetActive(false);
             _uiManager.GameOver();
+            _backgroundScroll.speed = 0;
         }
     }
     public void TripleShotActive()
@@ -370,6 +381,19 @@ public class Player : MonoBehaviour
         _uiManager.UpdateScore(_score);
     }
 
+    public void PlayerRespawn()
+    {
+        _lives += 3;
+        _player.SetActive(true);
+        _uiManager.UpdateLives(_lives);
+        _backgroundScroll.speed = 1;
+        _spawnManager.Respawned();
+
+        _rightEngine.SetActive(false);
+        _leftEngine.SetActive(false);
+        _screenCrack1.SetActive(false);
+        _screenCrack2.SetActive(false);
+    }
   
 
     //Screen Crack Routine

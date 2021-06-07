@@ -21,10 +21,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Sprite[] _specialPowerUPSprites;
 
+    //[SerializeField]
+    //private Text _gameoverText;
+    //[SerializeField]
+    //private Text _restartLevel;
+
     [SerializeField]
-    private Text _gameoverText;
-    [SerializeField]
-    private Text _restartLevel;
+    private GameObject _gameOverMenu;
+    
     [SerializeField]
     private Image _thrusterBar;
     private float _maxEnergy = 100f;
@@ -33,6 +37,8 @@ public class UIManager : MonoBehaviour
     private Text _ammoText;
 
     private GameManager _gameManager;
+    private Player _player;
+    private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +46,12 @@ public class UIManager : MonoBehaviour
         //Starting score text, set to zero
         _scoreText.text = "Score: " + 0;
         _ammoText.text = 50.ToString();
-        _gameoverText.gameObject.SetActive(false);
-        _restartLevel.gameObject.SetActive(false);
+        //_gameoverText.gameObject.SetActive(false);
+        //_restartLevel.gameObject.SetActive(false);
+        _gameOverMenu.SetActive(false);
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -89,9 +98,17 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
-        _gameoverText.gameObject.SetActive(true);
-        _restartLevel.gameObject.SetActive(true);
+        //_gameoverText.gameObject.SetActive(true);
+        //_restartLevel.gameObject.SetActive(true);
+        _gameOverMenu.SetActive(true);
         _gameManager.GameOver();
+    }
+    public void Respawned()
+    {
+        _player.PlayerRespawn();
+        _gameOverMenu.SetActive(false);
+        _gameManager.Respawned();
+        _spawnManager.StartCoroutine();
     }
     public void UpdateEnergyStatus(float value)
     {

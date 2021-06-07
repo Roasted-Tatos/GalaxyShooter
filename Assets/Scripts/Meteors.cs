@@ -9,6 +9,10 @@ public class Meteors : MonoBehaviour
 
     [SerializeField]
     private AudioSource _dmgSound;
+    [SerializeField]
+    private AudioSource _explosionSound;
+    [SerializeField]
+    private float _health = 10f;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +37,23 @@ public class Meteors : MonoBehaviour
                 Instantiate(_explosion, transform.position, Quaternion.identity);
                 _dmgSound.Play();
             }
+        }
+        if(other.gameObject.tag == "Laser")
+        {
+            _health -= 2;
+            Destroy(other.gameObject);
+            Instantiate(_explosion, transform.position, Quaternion.identity);
+            _dmgSound.Play();
+            if (_health <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        if(other.gameObject.tag == "Beam")
+        {
+            Instantiate(_explosion, transform.position, Quaternion.identity);
+            _explosionSound.Play();
+            Destroy(this.gameObject,0.5f);
         }
     }
 }

@@ -27,4 +27,8 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
     }
+    public void Respawned()
+    {
+        _isGameOver = false;
+    }
 }

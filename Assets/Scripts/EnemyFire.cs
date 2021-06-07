@@ -11,11 +11,21 @@ public class EnemyFire : MonoBehaviour
     [SerializeField]
     private AudioSource _laserSound;
 
+    [SerializeField]
+    private float _health = 100f;
+    [SerializeField]
+    private GameObject _explosion01,_explosion02,_explosion03;
+   
+
+
     // Start is called before the first frame update
     void Start()
     {
         _laserPrefab.SetActive(false);
         _laserPrefab2.SetActive(false);
+        _explosion01.SetActive(false);
+        _explosion02.SetActive(false);
+        _explosion03.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,6 +38,23 @@ public class EnemyFire : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             StartCoroutine(LaserPowerDownRoutine());
+        }
+        if (other.gameObject.tag == "Beam")
+        {
+            _health -= 5;
+            _explosion01.SetActive(true);
+            if(_health <= 50)
+            {
+                _explosion02.SetActive(true);
+            }
+            if(_health <=20)
+            {
+                _explosion03.SetActive(true);
+            }
+            if(_health <=0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
     IEnumerator LaserPowerDownRoutine()

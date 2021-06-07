@@ -7,6 +7,7 @@ public class LaserBehaviour : MonoBehaviour
 
     [SerializeField]
     private int _speed = 8;
+   
 
     void Start()
     {
@@ -27,4 +28,5 @@ public class LaserBehaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    
 }

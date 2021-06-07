@@ -15,13 +15,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] powerUps;
    
-
+    [SerializeField]
     private bool _stopSpawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine();
+        
+            StartCoroutine();
+        
     }
 
     public void StartCoroutine()
@@ -40,7 +42,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
-        yield return new WaitForSeconds(50f);
+        yield return new WaitForSeconds(10f);
         while(_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
@@ -53,7 +55,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemy2Routine()
     {
-        yield return new WaitForSeconds(50f);
+        yield return new WaitForSeconds(20f);
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8,8), 10, 0);
@@ -66,7 +68,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerUpRoutine()
     {
-        yield return new WaitForSeconds(55f);
+        yield return new WaitForSeconds(35f);
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
@@ -90,6 +92,10 @@ public class SpawnManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         _stopSpawning = true;
+    }
+    public void Respawned()
+    {
+        _stopSpawning = false;
     }
 
 }
