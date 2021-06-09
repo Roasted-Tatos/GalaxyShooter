@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer _ammoRenderer;
     [SerializeField]
     private GameObject _laser;
+
+    public List<GameObject> playerLaser = new List<GameObject>();
+
     [SerializeField]
     private GameObject _TripleShot;
     [SerializeField]
@@ -42,6 +45,9 @@ public class Player : MonoBehaviour
     private GameObject _SpecialLaserBeam;
     [SerializeField]
     private int _specialPower = 3;
+
+    private float _spFireRate = 1f;
+    private float _spCanFire = -1f;
     
     //[SerializeField]
     //private bool _isSpeedActive = false;
@@ -126,7 +132,7 @@ public class Player : MonoBehaviour
         CalculateMovement();
         _backgroundScroll.speed = 1;
 
-        if (Input.GetKey(KeyCode.E) && Time.time > _canFire)
+        if (Input.GetKey(KeyCode.E) && Time.time > _spCanFire)
         {
             if (_specialPower == 0)
             {
@@ -219,11 +225,13 @@ public class Player : MonoBehaviour
 
         if (_isTripleShotActive == true)
         {
-            Instantiate(_TripleShot, transform.position, Quaternion.identity);
+            GameObject tripleLaser = Instantiate(_TripleShot, transform.position, Quaternion.identity);
+            playerLaser.Add(tripleLaser);
         }
         else if (_isTripleShotActive == false)
         {
-            Instantiate(_laser, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            GameObject singleLaser = Instantiate(_laser, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            playerLaser.Add(singleLaser);
         }
 
         _laserSound.Play();
@@ -250,7 +258,7 @@ public class Player : MonoBehaviour
       
         StartCoroutine(SpecialBeamFireRoutine());
         SpecialBeamCount(-1);
-        _canFire = Time.time + _fireRate;
+        _spCanFire = Time.time + _spFireRate;
         _beamSound.Play();
 
     }

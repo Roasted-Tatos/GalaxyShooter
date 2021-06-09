@@ -18,12 +18,14 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private bool _stopSpawning = false;
 
+    private Player _player;
+
     // Start is called before the first frame update
     void Start()
     {
         
             StartCoroutine();
-        
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     public void StartCoroutine()
@@ -42,7 +44,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
         while(_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);

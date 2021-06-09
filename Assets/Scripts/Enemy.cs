@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 5f;
     [SerializeField]
+    private int _movementID;
+
+    [SerializeField]
     private GameObject _laserPrefab;
 
     
@@ -41,12 +44,21 @@ public class Enemy : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider2D>();
         //Audio Reference
         _explosionSound = GetComponent<AudioSource>();
+        _movementID = Random.Range(-1, 2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        EnemeyMovement();
+        switch (_movementID)
+        {
+            case 0:
+                EnemeyMovement();
+                break;
+            default:
+                DiagonalMovement(_movementID);
+                break;
+        }
 
         if (Time.time > _canFire)
         {
@@ -78,6 +90,11 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(Random.Range(-8f, 8f), 7, 0);
             
         }
+    }
+
+    private void DiagonalMovement(int direct)
+    {
+        transform.Translate(new Vector3(direct,-1,0).normalized * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

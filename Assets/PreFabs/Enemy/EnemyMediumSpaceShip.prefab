@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 2
-  _laserPrefab: {fileID: 2223798799561845554, guid: 330760c9362f80a4482a935638d44334, type: 3}
+  _movementID: 0
+  _laserPrefab: {fileID: 2876993144855696109, guid: 37e824bf430a00742a5917cffab7fd53, type: 3}
   _explosionSound: {fileID: 8482468684570744093}
   _fireSound: {fileID: 208443104172129712}
 --- !u!82 &8482468684570744093

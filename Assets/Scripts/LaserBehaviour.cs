@@ -7,11 +7,12 @@ public class LaserBehaviour : MonoBehaviour
 
     [SerializeField]
     private int _speed = 8;
+    private Player _player;
    
 
     void Start()
     {
-        
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class LaserBehaviour : MonoBehaviour
             {
                 Destroy(transform.parent.gameObject);
             }
+            _player.playerLaser.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
     }

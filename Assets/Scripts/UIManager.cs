@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     {
         //Starting score text, set to zero
         _scoreText.text = "Score: " + 0;
-        _ammoText.text = 50.ToString();
+        _ammoText.text = 50.ToString()+ "/50";
         //_gameoverText.gameObject.SetActive(false);
         //_restartLevel.gameObject.SetActive(false);
         _gameOverMenu.SetActive(false);
@@ -77,18 +77,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAmmo (int playerAmmo)
     {
-        _ammoText.text = playerAmmo.ToString();
+        _ammoText.text = playerAmmo.ToString() + "/50";
         if (playerAmmo == 0)
         {
-            switch (playerAmmo)
-            {
-                case 0:
-                    _ammoRenderer.color = Color.red;
-                    break;
-                default:
-                    Debug.Log("Default value");
-                    break;
-            }
+            _ammoRenderer.color = Color.red;
         }
         else
         {
@@ -98,8 +90,6 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
-        //_gameoverText.gameObject.SetActive(true);
-        //_restartLevel.gameObject.SetActive(true);
         _gameOverMenu.SetActive(true);
         _gameManager.GameOver();
     }
