@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     public GameObject _enemyPrefab2;
     [SerializeField]
-    public GameObject[] missles;
+    public GameObject[] SecondaryEnemies;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
@@ -86,7 +86,7 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            Instantiate(missles[0], posToSpawn, Quaternion.identity);
+            Instantiate(SecondaryEnemies[0], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }

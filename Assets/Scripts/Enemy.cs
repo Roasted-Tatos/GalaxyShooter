@@ -110,7 +110,8 @@ public class Enemy : MonoBehaviour
             _explosionSound.Play();
             _speed = 0.2f;
             _boxCollider.enabled = (false);
-            Destroy(other.gameObject);
+            _player.playerLaser.Remove(other.gameObject);
+            Destroy(other.gameObject,1f);
             Destroy(this.gameObject,2.0f);
             
         }

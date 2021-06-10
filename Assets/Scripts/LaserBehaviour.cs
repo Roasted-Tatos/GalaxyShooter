@@ -27,7 +27,8 @@ public class LaserBehaviour : MonoBehaviour
                 Destroy(transform.parent.gameObject);
             }
             _player.playerLaser.Remove(this.gameObject);
-            Destroy(this.gameObject);
+
+            Destroy(this.gameObject,0.1f);
         }
     }
     

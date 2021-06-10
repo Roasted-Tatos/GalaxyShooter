@@ -18,11 +18,13 @@ public class DodgingEnemy : MonoBehaviour
     [SerializeField]
     private GameObject _explosion;
 
+
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _collider = GetComponent<BoxCollider2D>();
-        _collider.enabled = true;
+
+        
     }
 
     // Update is called once per frame
@@ -80,12 +82,44 @@ public class DodgingEnemy : MonoBehaviour
             {
                 _player.GetPoints(100);
             }
-            //_isAlive = false;
             Instantiate(_explosion, transform.position, Quaternion.identity);
             //_explosionSound.Play();
             _speed = 0f;
             _collider.enabled = (false);
-            Destroy(other.gameObject);
+            _player.playerLaser.Remove(other.gameObject);
+            Destroy(other.gameObject,1f);
+            Destroy(this.gameObject);
+            
+
+        }
+        if (other.gameObject.tag == "Beam")
+        {
+            if (_player != null)
+            {
+                _player.GetPoints(100);
+            }
+            Instantiate(_explosion, transform.position, Quaternion.identity);
+            //_explosionSound.Play();
+            _speed = 0f;
+            _collider.enabled = (false);
+            Destroy(this.gameObject);
+
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            //Storing the player component in a variable
+            Player player = other.transform.GetComponent<Player>();
+
+            //If player is found the Damage component from Player
+            if (player != null)
+            {
+                player.Damage();
+            }
+
+            Instantiate(_explosion, transform.position, Quaternion.identity);
+            //_explosionSound.Play();
+            _collider.enabled = (false);
+            _speed = 0;
             Destroy(this.gameObject);
 
         }

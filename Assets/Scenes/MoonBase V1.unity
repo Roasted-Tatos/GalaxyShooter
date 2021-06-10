@@ -7699,8 +7699,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 5645866851055404124, guid: 62015a7bc684b3842b53f2fe2425ce15, type: 3}
-  _enemyPrefab2: {fileID: 8482468684570744064, guid: 767466b094877c74cb366977f9b42d4c, type: 3}
-  missles:
+  _enemyPrefab2: {fileID: 5874265266324942572, guid: f76811e209c2e904383c68b238e8794a, type: 3}
+  SecondaryEnemies:
   - {fileID: 5874265266324942572, guid: f76811e209c2e904383c68b238e8794a, type: 3}
   _enemyContainer: {fileID: 784742423}
   powerUps:
@@ -13438,7 +13438,7 @@ MonoBehaviour:
   playerLaser: []
   _TripleShot: {fileID: 481882814795234048, guid: 4af0511913ac89e4c9906e7166328147, type: 3}
   _isTripleShotActive: 0
-  _shieldsActive: 0
+  _shieldsActive: 1
   _shieldRenderer: {fileID: 98198450}
   _SpecialLaserBeam: {fileID: 198838343}
   _specialPower: 3
@@ -14389,7 +14389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 49.3, y: 100.8}
+  m_AnchoredPosition: {x: 49.30005, y: 100.8}
   m_SizeDelta: {x: 317, y: 258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1114868971
