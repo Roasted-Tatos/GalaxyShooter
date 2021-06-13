@@ -84,15 +84,18 @@ public class Player : MonoBehaviour
     private AudioSource _laserSound;
     [SerializeField]
     private AudioSource _beamSound;
-    
-   
-    
-    
+
+    public delegate void MagPull();
+    public static event MagPull OnMagnetPull;
+    public static event MagPull OnMagnetStop;
+
+
     // Start is called before the first frame update
     void Start()
     {
         //starting position = new postion
         transform.position = new Vector3(0, 0, 0);
+
 
         _anim = GetComponent<Animator>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -114,6 +117,8 @@ public class Player : MonoBehaviour
         //Finding the Spawn Manager
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
 
+        UpdateScore();
+
         if (_spawnManager == null)
         {
             Debug.LogError("Spawn manager is not found");
@@ -131,6 +136,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         _backgroundScroll.speed = 1;
+        MagPullPower();
 
         if (Input.GetKey(KeyCode.E) && Time.time > _spCanFire)
         {
@@ -193,10 +199,7 @@ public class Player : MonoBehaviour
             _AfterBurnerLeft.SetActive(false);
             _AfterBurnerRight.SetActive(false);
         }
-        
-        
-       
-        
+
        
         //Player Bounds
         if (transform.position.y >= 5)
@@ -216,6 +219,16 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(-9f, transform.position.y, 0);
         }
+    }
+
+    private void UpdateScore()
+    {
+        _score = PlayerPrefs.GetInt("Score");
+        _uiManager.UpdateScore(_score);
+        _thrusterEnergy = PlayerPrefs.GetFloat("Thruster");
+        _uiManager.UpdateEnergyStatus(_thrusterEnergy);
+        _ammoCount = PlayerPrefs.GetInt("Ammo");
+        _uiManager.UpdateAmmo(_ammoCount);
     }
     void FireLaser()
     {
@@ -249,7 +262,7 @@ public class Player : MonoBehaviour
         {
             _ammoCount += bullets;
         }
-        
+        PlayerPrefs.SetInt("Ammo", _ammoCount);
         _uiManager.UpdateAmmo(_ammoCount);
     }
 
@@ -280,6 +293,24 @@ public class Player : MonoBehaviour
         _SpecialLaserBeam.SetActive(true);
         yield return new WaitForSeconds(4.5f);
         _SpecialLaserBeam.SetActive(false);
+    }
+
+    private void MagPullPower()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            if(OnMagnetPull != null)
+            {
+                OnMagnetPull();
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            if (OnMagnetStop != null)
+            {
+                OnMagnetStop();
+            }
+        }
     }
 
     public void  Damage()
@@ -355,6 +386,7 @@ public class Player : MonoBehaviour
         {
             _thrusterEnergy = 100f;
         }
+        PlayerPrefs.SetFloat("Thruster", _thrusterEnergy);
         _uiManager.UpdateEnergyStatus(_thrusterEnergy);
        
     }
@@ -387,6 +419,7 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uiManager.UpdateScore(_score);
+        PlayerPrefs.SetInt("Score", _score);
     }
 
     public void PlayerRespawn()
@@ -402,7 +435,20 @@ public class Player : MonoBehaviour
         _screenCrack1.SetActive(false);
         _screenCrack2.SetActive(false);
     }
-  
+
+    public void PlayerScoreReset()
+    {
+        PlayerPrefs.DeleteKey("Score");
+        _score = 0;
+        _uiManager.UpdateScore(_score);
+        PlayerPrefs.DeleteKey("Thruster");
+        _thrusterEnergy = 100f;
+        _uiManager.UpdateEnergyStatus(_thrusterEnergy);
+        PlayerPrefs.DeleteKey("Ammo");
+        _ammoCount = 50;
+        _uiManager.UpdateAmmo(50);
+    }
+
 
     //Screen Crack Routine
     IEnumerator CrackScreenRoutine1()

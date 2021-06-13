@@ -141,10 +141,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5874265266324942572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a9d9d383bdc4f44fb19ca1026c57948, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d911a9a87cda5b4aaf5331e78960947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _safetyDistance: 1.92
-  _dodgeSpeed: 7
-  _speed: 4
-  _explosion: {fileID: 7139037774828293197, guid: e57cad9fa747e3d44b1a56a9b71a8adb, type: 3}
+  _safetyDistance: 4
+  _dodgeSpeed: 5
+  _speed: 5
+  _explosion: {fileID: 5242131326277120920, guid: e0b4a06b9db9195418d5e5a20c836d6f, type: 3}
+  _bulletSpread: {fileID: 6966605871948676406, guid: 88add672db9da58468cda86a29f8db80, type: 3}
+  _isAlive: 1
+  _explosionSound: {fileID: 8300000, guid: 1c7bc485414f6f7499e08759768f023d, type: 3}

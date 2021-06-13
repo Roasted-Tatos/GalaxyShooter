@@ -25,7 +25,7 @@ public class SpaceMines_Behavior : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player == null)
         {
-            Debug.Log("Player not found");
+            Destroy(this.gameObject);
         }
 
         _collider = GetComponent<CircleCollider2D>();
@@ -34,15 +34,24 @@ public class SpaceMines_Behavior : MonoBehaviour
     {
         if (other.gameObject.tag == "Laser")
         {
+            if (_player != null)
+            {
+                _player.GetPoints(100);
+            }
             _explosionAnim.SetBool("Explosion", true);
             _explosionSound.Play();
             _collider.enabled = false;
+            _player.playerLaser.Remove(other.gameObject);
             Destroy(other.gameObject);
             Destroy(this.gameObject, 2.3f);
 
         }
         if (other.gameObject.tag == "Beam")
         {
+            if (_player != null)
+            {
+                _player.GetPoints(100);
+            }
             _explosionAnim.SetBool("Explosion", true);
             _explosionSound.Play();
             _collider.enabled = false;

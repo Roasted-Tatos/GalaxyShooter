@@ -12,7 +12,10 @@ public class PowerUp : MonoBehaviour
     private AudioClip _pickupSound;
 
     private Player _player;
+    [SerializeField]
+    private bool _magnetized = false;
 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,15 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if(_magnetized)
+        {
+            float step = _speed * 2 * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position,_player.transform.position, step);
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
         
         if (transform.position.y <= -4.5f)
         {
@@ -72,4 +83,32 @@ public class PowerUp : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void MagOn()
+    {
+        if (gameObject.activeSelf)
+        {
+            _magnetized = true;
+        }
+        else
+        {
+            _magnetized = false;
+        }
+    }
+    private void MagOff()
+    {
+        _magnetized = false;
+    }
+    private void OnEnable()
+    {
+        Player.OnMagnetPull += MagOn;
+        Player.OnMagnetStop += MagOff;
+    }
+    private void OnDisable()
+    {
+        Player.OnMagnetPull -= MagOn;
+        Player.OnMagnetStop -= MagOff;
+    }
+
 }
+

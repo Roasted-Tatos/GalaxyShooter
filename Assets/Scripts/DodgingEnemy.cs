@@ -18,6 +18,17 @@ public class DodgingEnemy : MonoBehaviour
     [SerializeField]
     private GameObject _explosion;
 
+    [SerializeField]
+    private GameObject _bulletSpread;
+
+    private float _canFire = -1f;
+    private float _fireRate = 2f;
+    [SerializeField]
+    private bool _isAlive = true;
+
+    [SerializeField]
+    private AudioClip _explosionSound;
+
 
     void Start()
     {
@@ -32,6 +43,18 @@ public class DodgingEnemy : MonoBehaviour
     {
         EnemeyMovement();
         Dodging();
+
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(2f, 4f);
+            _canFire = Time.time + _fireRate;
+            FireLaser();
+        }
+        if (_player == null)
+        {
+            PlayerisDead();
+            Debug.Log("Stop Shooting damn it");
+        }
     }
 
     void EnemeyMovement()
@@ -43,6 +66,23 @@ public class DodgingEnemy : MonoBehaviour
             transform.position = new Vector3(Random.Range(-8f, 8f), 7, 0);
 
         }
+    }
+
+    private void FireLaser()
+    {
+        if(_isAlive == true)
+        {
+            for ( int fireAngle = 0; fireAngle < 360; fireAngle += 30)
+            {
+                var newBullet = Instantiate(_bulletSpread, transform.position, Quaternion.identity);
+                newBullet.transform.eulerAngles = Vector3.forward * fireAngle;
+            }
+        }
+    }
+
+    private void PlayerisDead()
+    {
+        _isAlive = false;
     }
 
     private void Dodging()
@@ -83,11 +123,13 @@ public class DodgingEnemy : MonoBehaviour
                 _player.GetPoints(100);
             }
             Instantiate(_explosion, transform.position, Quaternion.identity);
-            //_explosionSound.Play();
+            
             _speed = 0f;
+            _isAlive = false;
             _collider.enabled = (false);
             _player.playerLaser.Remove(other.gameObject);
-            Destroy(other.gameObject,1f);
+            AudioSource.PlayClipAtPoint(_explosionSound, new Vector3(0, 0, -10));
+            Destroy(other.gameObject);
             Destroy(this.gameObject);
             
 
@@ -101,7 +143,9 @@ public class DodgingEnemy : MonoBehaviour
             Instantiate(_explosion, transform.position, Quaternion.identity);
             //_explosionSound.Play();
             _speed = 0f;
+            _isAlive = false;
             _collider.enabled = (false);
+            AudioSource.PlayClipAtPoint(_explosionSound, new Vector3(0, 0, -10));
             Destroy(this.gameObject);
 
         }
@@ -117,10 +161,12 @@ public class DodgingEnemy : MonoBehaviour
             }
 
             Instantiate(_explosion, transform.position, Quaternion.identity);
-            //_explosionSound.Play();
+            AudioSource.PlayClipAtPoint(_explosionSound, new Vector3(0, 0, -10));
             _collider.enabled = (false);
             _speed = 0;
-            Destroy(this.gameObject);
+            _isAlive = false;
+            
+            Destroy(this.gameObject, 0.1f);
 
         }
     }
