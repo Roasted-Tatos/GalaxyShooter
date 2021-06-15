@@ -13,7 +13,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
 
-    
+    [SerializeField]
+    private GameObject _Shields;
+    private bool _isShieldsActive = false;
 
     private Player _player;
     private Animator _anim;
@@ -30,21 +32,30 @@ public class Enemy : MonoBehaviour
 
     private bool _isAlive = true;
 
-   
+
 
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        //Animator
+        
         _anim = GetComponent<Animator>();
         if (_anim == null)
         {
             Debug.Log("Anim not found");
         }
         _boxCollider = GetComponent<BoxCollider2D>();
-        //Audio Reference
+        
         _explosionSound = GetComponent<AudioSource>();
         _movementID = Random.Range(-1, 2);
+
+        //Shield RNG
+        int _ShieldRNG = Random.Range(0, 3);
+        if (_ShieldRNG == 1)
+        {
+            _isShieldsActive = true;
+            _Shields.SetActive(true);
+            Debug.Log("RNG is running");
+        }
     }
 
     // Update is called once per frame
@@ -67,11 +78,11 @@ public class Enemy : MonoBehaviour
             FireLaser();
             _fireSound.Play();
         }
-       
+
     }
     public void FireLaser()
     {
-        if(_isAlive == true)
+        if (_isAlive == true)
         {
             Instantiate(_laserPrefab, transform.position, Quaternion.identity);
         }
@@ -88,18 +99,25 @@ public class Enemy : MonoBehaviour
         if (transform.position.y <= -6)
         {
             transform.position = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            
+
         }
     }
 
     private void DiagonalMovement(int direct)
     {
-        transform.Translate(new Vector3(direct,-1,0).normalized * _speed * Time.deltaTime);
+        transform.Translate(new Vector3(direct, -1, 0).normalized * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Laser")
+      
+        if (other.gameObject.tag == "Laser" && _isShieldsActive == true)
+        {
+            _isShieldsActive = false;
+            _Shields.SetActive(false);
+            return;
+        }
+        else if (other.gameObject.tag == "Laser" && _isShieldsActive == false)
         {
             if (_player != null)
             {
@@ -110,10 +128,10 @@ public class Enemy : MonoBehaviour
             _explosionSound.Play();
             _speed = 0.2f;
             _boxCollider.enabled = (false);
+            _isShieldsActive = false;
             _player.playerLaser.Remove(other.gameObject);
-            Destroy(other.gameObject,1f);
-            Destroy(this.gameObject,2.0f);
-            
+            Destroy(other.gameObject, 1f);
+            Destroy(this.gameObject, 2.0f);
         }
 
         if (other.gameObject.tag == "Beam")
@@ -124,6 +142,7 @@ public class Enemy : MonoBehaviour
             }
             _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
+            _Shields.SetActive(false);
             _explosionSound.Play();
             _speed = 0.2f;
             _boxCollider.enabled = (false);
@@ -144,10 +163,12 @@ public class Enemy : MonoBehaviour
             _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
             _explosionSound.Play();
+            _Shields.SetActive(false);
             _boxCollider.enabled = (false);
             _speed = 0;
-            Destroy(this.gameObject,2.8f);
-            
+            Destroy(this.gameObject, 2.8f);
+
         }
     }
-}
+
+}   

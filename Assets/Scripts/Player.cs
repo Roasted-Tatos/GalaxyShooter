@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
     public static event MagPull OnMagnetPull;
     public static event MagPull OnMagnetStop;
 
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -223,11 +223,11 @@ public class Player : MonoBehaviour
 
     private void UpdateScore()
     {
-        _score = PlayerPrefs.GetInt("Score");
+        _score = PlayerPrefs.GetInt("Score",0);
         _uiManager.UpdateScore(_score);
-        _thrusterEnergy = PlayerPrefs.GetFloat("Thruster");
+        _thrusterEnergy = PlayerPrefs.GetFloat("Thruster",100f);
         _uiManager.UpdateEnergyStatus(_thrusterEnergy);
-        _ammoCount = PlayerPrefs.GetInt("Ammo");
+        _ammoCount = PlayerPrefs.GetInt("Ammo",50);
         _uiManager.UpdateAmmo(_ammoCount);
     }
     void FireLaser()
