@@ -121,7 +121,9 @@ MonoBehaviour:
   _rotationSpeed: 25
   _speed: 5
   _explosionAnim: {fileID: 3568685664977486248}
+  _DetectionArea: 4
   _explosionSound: {fileID: 686234742653716089}
+  _player: {fileID: 0}
 --- !u!58 &73621927284236544
 CircleCollider2D:
   m_ObjectHideFlags: 0

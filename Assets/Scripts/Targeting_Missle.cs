@@ -63,7 +63,7 @@ public class Targeting_Missle : MonoBehaviour
             _explosionSound.Play();
             _speed = 0f;
             _collider.enabled = false;
-
+            _player.playerLaser.Remove(other.gameObject);
             Destroy(other.gameObject);
             Destroy(this.gameObject, 2.0f);
 

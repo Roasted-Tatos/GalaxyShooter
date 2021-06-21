@@ -106,6 +106,15 @@ public class Enemy : MonoBehaviour
     private void DiagonalMovement(int direct)
     {
         transform.Translate(new Vector3(direct, -1, 0).normalized * _speed * Time.deltaTime);
+
+        if (transform.position.x >18)
+        {
+            transform.position = new Vector3(Random.Range(-8f, 8f), 10, 0);
+        }
+        if (transform.position.x <-17)
+        {
+            transform.position = new Vector3(Random.Range(-8f, 8f), 10, 0);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -115,6 +124,8 @@ public class Enemy : MonoBehaviour
         {
             _isShieldsActive = false;
             _Shields.SetActive(false);
+            _player.playerLaser.Remove(other.gameObject);
+            Destroy(other.gameObject);
             return;
         }
         else if (other.gameObject.tag == "Laser" && _isShieldsActive == false)

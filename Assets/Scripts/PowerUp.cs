@@ -74,6 +74,9 @@ public class PowerUp : MonoBehaviour
                 case 5:
                     _player.SpecialBeamCount(3);
                     break;
+                case 6:
+                    _player.Slowed();
+                    break;
                 default:
                     Debug.Log("Default value");
                     break;

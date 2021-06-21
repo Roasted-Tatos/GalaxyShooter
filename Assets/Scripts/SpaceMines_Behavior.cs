@@ -12,24 +12,48 @@ public class SpaceMines_Behavior : MonoBehaviour
     private Animator _explosionAnim;
 
     [SerializeField]
-    private AudioSource _explosionSound;
+    private float _DetectionArea =4f;
 
+    [SerializeField]
+    private AudioSource _explosionSound;
+    [SerializeField]
     private Player _player;
     private CircleCollider2D _collider;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        
         _player = GameObject.Find("Player").GetComponent<Player>();
+
         if (_player == null)
         {
             Destroy(this.gameObject);
         }
-
+        Ramming();
         _collider = GetComponent<CircleCollider2D>();
     }
+
+    private void Ramming()
+    {
+        
+        if(Vector3.Distance(transform.position,_player.transform.position)<_DetectionArea)
+        { 
+             transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position,_DetectionArea);
+    }
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Laser")

@@ -31,7 +31,7 @@ public class TargetingBulletBehavior : MonoBehaviour
     }
     private void Update()
     {
-        Destroy(this.gameObject, 4f);
+        Destroy(this.gameObject, 3f);
     }
     public void OnTriggerEnter2D(Collider2D other)
     {

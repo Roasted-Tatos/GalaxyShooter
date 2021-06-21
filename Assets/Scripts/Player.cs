@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
     //PowerUps
     [SerializeField]
     private int _ammoCount = 50;
-    [SerializeField]
-    private SpriteRenderer _ammoRenderer;
+
     [SerializeField]
     private GameObject _laser;
 
@@ -73,6 +72,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer _Shields;
+    [SerializeField]
+    private GameObject _NegativeFeedback;
+    [SerializeField]
+    private GameObject _GatheringFeedback;
 
     //Scoring and granting access to the UImanager
     [SerializeField]
@@ -111,8 +114,10 @@ public class Player : MonoBehaviour
         _screenCrack2.SetActive(false);
         _AfterBurnerLeft.SetActive(false);
         _AfterBurnerRight.SetActive(false);
-        //_chargingGlow.SetActive(false);
+        _NegativeFeedback.SetActive(false);
+
         _SpecialLaserBeam.SetActive(false);
+        _GatheringFeedback.SetActive(false);
 
         //Finding the Spawn Manager
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
@@ -297,19 +302,22 @@ public class Player : MonoBehaviour
 
     private void MagPullPower()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.G))
         {
             if(OnMagnetPull != null)
             {
                 OnMagnetPull();
+                
             }
+            _GatheringFeedback.SetActive(true);
         }
-        else if (Input.GetKeyUp(KeyCode.F))
+        else if (Input.GetKeyUp(KeyCode.G))
         {
             if (OnMagnetStop != null)
             {
                 OnMagnetStop();
             }
+            _GatheringFeedback.SetActive(false);
         }
     }
 
@@ -449,6 +457,18 @@ public class Player : MonoBehaviour
         _uiManager.UpdateAmmo(50);
     }
 
+    public void Slowed()
+    {
+        StartCoroutine(SlowedRoutine());
+    }
+    IEnumerator SlowedRoutine()
+    {
+        _speed = 0.5f;
+        _NegativeFeedback.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        _NegativeFeedback.SetActive(false);
+        _speed = 5f;
+    }
 
     //Screen Crack Routine
     IEnumerator CrackScreenRoutine1()
