@@ -20,18 +20,20 @@ public class SpaceMines_Behavior : MonoBehaviour
     private Player _player;
     private CircleCollider2D _collider;
 
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        _collider = GetComponent<CircleCollider2D>();
+    }
     // Update is called once per frame
     void Update()
     {
-        
-        _player = GameObject.Find("Player").GetComponent<Player>();
-
         if (_player == null)
         {
             Destroy(this.gameObject);
         }
         Ramming();
-        _collider = GetComponent<CircleCollider2D>();
+        
     }
 
     private void Ramming()
