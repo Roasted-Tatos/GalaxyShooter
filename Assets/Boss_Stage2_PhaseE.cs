@@ -2,31 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Start : StateMachineBehaviour
+public class Boss_Stage2_PhaseE : StateMachineBehaviour
 {
-    [SerializeField]
-    private AudioSource _howl;
+    public float time;
+    public float minTime;
+    public float maxTime;
 
     private int random;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        random = Random.Range(0, 2);
-        _howl = animator.GetComponent<AudioSource>();
-        _howl.Play();
+        time = Random.Range(minTime, maxTime);
+        random = Random.Range(0, 3);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(random == 0)
+        if (time <= 0)
         {
-            animator.SetTrigger("PhaseB");
+            if (random == 0)
+            {
+                animator.SetTrigger("PhaseD");
+            }
+            else if (random == 1)
+            {
+                animator.SetTrigger("Ramming");
+            }
+            else
+            {
+                animator.SetTrigger("PhaseC");
+            }
+
         }
         else
         {
-            animator.SetTrigger("PhaseA");
+            time -= Time.deltaTime;
         }
     }
 

@@ -17,14 +17,16 @@ public class SpawnManager : MonoBehaviour
    
     [SerializeField]
     private bool _stopSpawning = false;
+    [SerializeField]
+    private bool _bossBattle = true;
 
     private Player _player;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-            StartCoroutine();
+        BossBattle();
+         StartCoroutine();
         _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
@@ -70,8 +72,8 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerUpRoutine()
     {
-        yield return new WaitForSeconds(35f);
-        while (_stopSpawning == false)
+        yield return new WaitForSeconds(30f);
+        while (_bossBattle ==true )
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             int randomPowerUp = Random.Range(0, 7);
@@ -98,6 +100,10 @@ public class SpawnManager : MonoBehaviour
     public void Respawned()
     {
         _stopSpawning = false;
+    }
+    public void BossBattle()
+    {
+        _bossBattle = true;
     }
 
 }

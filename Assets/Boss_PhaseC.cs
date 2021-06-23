@@ -8,10 +8,13 @@ public class Boss_PhaseC : StateMachineBehaviour
     public float minTime;
     public float maxTime;
 
+    private int random;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         time = Random.Range(minTime, maxTime);
+        random = Random.Range(0, 3);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +22,19 @@ public class Boss_PhaseC : StateMachineBehaviour
     {
         if (time <= 0)
         {
-            animator.SetTrigger("Ramming");
+            if(random == 0)
+            {
+                animator.SetTrigger("PhaseD");
+            }
+            else if (random == 1)
+            {
+                animator.SetTrigger("Ramming");
+            }
+            else
+            {
+                animator.SetTrigger("PhaseE");
+            }
+            
         }
         else
         {

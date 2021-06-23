@@ -6,9 +6,12 @@ public class Boss_Stage2Start : StateMachineBehaviour
 {
     //private float _elaspeTime = 0;
     private int random;
+    private AudioSource _howl;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        _howl = animator.GetComponent<AudioSource>();
+        _howl.Play();
         random = Random.Range(0, 2);
     }
 
