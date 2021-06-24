@@ -226,7 +226,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void UpdateScore()
+    public void UpdateScore()
     {
         _score = PlayerPrefs.GetInt("Score",0);
         _uiManager.UpdateScore(_score);
@@ -244,7 +244,7 @@ public class Player : MonoBehaviour
         if (_isTripleShotActive == true)
         {
             GameObject tripleLaser = Instantiate(_TripleShot, transform.position, Quaternion.identity);
-            playerLaser.Add(tripleLaser);
+            //playerLaser.Add(tripleLaser);
         }
         else if (_isTripleShotActive == false)
         {
@@ -432,16 +432,20 @@ public class Player : MonoBehaviour
 
     public void PlayerRespawn()
     {
+        transform.position = new Vector3(0, 0, 0);
         _lives += 3;
+        _speed = 5f;
         _player.SetActive(true);
         _uiManager.UpdateLives(_lives);
         _backgroundScroll.speed = 1;
         _spawnManager.Respawned();
-
+        StartCoroutine(RespawniFrame());
         _rightEngine.SetActive(false);
         _leftEngine.SetActive(false);
         _screenCrack1.SetActive(false);
         _screenCrack2.SetActive(false);
+        _NegativeFeedback.SetActive(false);
+        _SpecialLaserBeam.SetActive(false);
     }
 
     public void PlayerScoreReset()
@@ -482,5 +486,13 @@ public class Player : MonoBehaviour
         _screenCrack2.SetActive(true);
         yield return new WaitForSeconds(4f);
         _screenCrack2.SetActive(false);
+    }
+
+    IEnumerator RespawniFrame()
+    {
+        BoxCollider2D iFrame = GetComponent<BoxCollider2D>();
+        iFrame.enabled = false;
+        yield return new WaitForSeconds(3f);
+        iFrame.enabled = true;
     }
 }

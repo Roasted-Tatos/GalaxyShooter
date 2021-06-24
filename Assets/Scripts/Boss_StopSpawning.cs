@@ -13,6 +13,7 @@ public class Boss_StopSpawning : MonoBehaviour
     {
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _bossBehavior = GameObject.Find("EnemyMotherShip").GetComponent<Boss_Behavior>();
+        
     }
 
     // Update is called once per frame

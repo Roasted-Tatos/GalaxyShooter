@@ -24,7 +24,9 @@ public class LaserBehaviour : MonoBehaviour
         {
             if (transform.parent !=null)
             {
-                Destroy(transform.parent.gameObject);
+                
+                Destroy(transform.parent.gameObject,0.1f);
+                
             }
             _player.playerLaser.Remove(this.gameObject);
 

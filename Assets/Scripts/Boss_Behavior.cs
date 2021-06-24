@@ -39,10 +39,9 @@ public class Boss_Behavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<Player>();
         anim = GetComponent<Animator>();
         Laser = GameObject.Find("AlienLaser").GetComponent<Animator>();
-
+        _player = GameObject.Find("Player").GetComponent<Player>();
         random = Random.Range(0, 2);
         _laserSpikes.SetActive(false);
         _fader = GameObject.Find("Fade_OUT").GetComponent<Animator>();
@@ -63,6 +62,7 @@ public class Boss_Behavior : MonoBehaviour
             anim.SetTrigger("Death");
             AudioSource.PlayClipAtPoint(_howl, new Vector3(0, 0, 0));
             StartCoroutine(EndGame());
+            _player.PlayerScoreReset();
             Destroy(this.gameObject, 3f);
         }
     }
@@ -79,6 +79,7 @@ public class Boss_Behavior : MonoBehaviour
         if (other.gameObject.tag == "Beam")
         {
             Instantiate(_dmgFX, transform.position, Quaternion.identity);
+            _dmgSound.Play();
             _health -= 5;
         }
        

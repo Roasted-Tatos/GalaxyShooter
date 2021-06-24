@@ -8,18 +8,26 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _isGameOver;
 
+    [SerializeField]
+    private Player _player;
+
+    private void Start()
+    {
+        //_player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
     private void Update()
     {
-            if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
-            {
-                SceneManager.LoadScene(0);
-            }
-            if (Input.GetKey("escape"))
-            {
-                Application.Quit();
-            Debug.Log("Application Has Quit");
-             
-            }
+        //if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
+        //{
+        // SceneManager.LoadScene(0);
+        //}
+        //if (Input.GetKey("escape"))
+        //{
+        //Application.Quit();
+        //Debug.Log("Application Has Quit");
+
+        //}
        
     }
 

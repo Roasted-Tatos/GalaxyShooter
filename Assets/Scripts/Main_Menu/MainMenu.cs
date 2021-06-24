@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
     public void LoadControlMenu()
     {
@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadCredits()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(5);
     }
     public void LoadMainMenu()
     {
