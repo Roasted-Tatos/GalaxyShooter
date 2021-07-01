@@ -646,7 +646,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "A Special Thanks to all the coaches at \nGameDevHQ"
+  m_Text: 'A special Thanks to everyone in
+
+    the GameDevHQ Community!'
 --- !u!222 &1012302258
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -997,7 +999,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Inspirations:\nTaito Games \"Raystorm\" & \"RayCrisis\"\n\nSpecial Thanks
-    to:\nAl Heck\nThomas Kesler\nRyan Chau\nSamuel Truong\nGary Liu\nOlivia Truong\n\nsongs
+    to:\nOlivia Truong\nSamuel Truong\nGary Liu\nDiscoraphy\nRyan Chau\n\n\nsongs
     used:\nAlexander Nakarada \"Chase\" \nAlexander Nakarada \"The Great Battle\"\nKeys
     of Moon \"The Inspiration\"\nScott Buckley \"In Dreams\"\n\nAssets:\nMS Game
     Development \"2D Spaceships\"\nMillionth Vector \"2D Alien Space craft\"\nNasa

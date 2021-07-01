@@ -569,7 +569,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Version 2.4
+  m_Text: Version 2.6
 --- !u!222 &115910511
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -710,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isGameOver: 0
+  _player: {fileID: 0}
 --- !u!4 &334930363
 Transform:
   m_ObjectHideFlags: 0

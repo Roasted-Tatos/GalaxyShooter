@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour
             _boxCollider.enabled = (false);
             _isShieldsActive = false;
             _player.playerLaser.Remove(other.gameObject);
-            Destroy(other.gameObject, 1f);
+            Destroy(other.gameObject);
             Destroy(this.gameObject, 2.0f);
         }
 

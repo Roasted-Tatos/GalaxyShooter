@@ -7523,13 +7523,16 @@ MonoBehaviour:
   - {fileID: 0}
   _enemyContainer: {fileID: 784742423}
   powerUps:
-  - {fileID: 4197382552425415741, guid: 7854c74b38fc43c4db2e801866ef003d, type: 3}
+  - {fileID: 6774301245260366794, guid: c8c4e7c6e126c444391d995bbeb167e1, type: 3}
   - {fileID: 2422703484038394327, guid: 45b3167b786be7d4290426fc5280b4f2, type: 3}
   - {fileID: 8356630932692102551, guid: 197dea545bf859c4aac5d68d4d949534, type: 3}
   - {fileID: 5050315073177582132, guid: cd23b9b958e059b44ae58038de351cd2, type: 3}
-  - {fileID: 6774301245260366794, guid: c8c4e7c6e126c444391d995bbeb167e1, type: 3}
+  - {fileID: 4197382552425415741, guid: 7854c74b38fc43c4db2e801866ef003d, type: 3}
   - {fileID: 4229368022633492906, guid: 9781ce6e59d5a0340af0eaf8e3fe444a, type: 3}
   - {fileID: 3991462984442226808, guid: ba35822e12602774fa9d0c7bd60a5b32, type: 3}
+  table_powerUps: 5000000028000000140000000a000000080000000500000003000000
+  total: 0
+  randomNumber: 0
   _stopSpawning: 0
   _bossBattle: 0
 --- !u!4 &528710815

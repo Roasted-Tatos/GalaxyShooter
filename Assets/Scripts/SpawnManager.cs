@@ -13,7 +13,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject[] powerUps;
+    private List<GameObject> powerUps;
+
+    public int[] table_powerUps = { 80, 40, 20, 10, 8, 5, 3 };
+    public int total;
+    public int randomNumber;
    
     [SerializeField]
     private bool _stopSpawning = false;
@@ -42,6 +46,31 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void BalancedSpawn()
+    {
+        total = 0;
+        foreach(var item in table_powerUps)
+        {
+            total += item;
+        }
+
+        randomNumber = Random.Range(0, total);
+
+        for (int i = 0; i < table_powerUps.Length; i++)
+        {
+            if (randomNumber<= table_powerUps[i])
+            {
+                Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+                Instantiate(powerUps[i], posToSpawn, Quaternion.identity);
+                return;
+            }
+            else
+            {
+                randomNumber -= table_powerUps[i];
+            }
+        }
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -75,9 +104,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(30f);
         while (_bossBattle ==true )
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            int randomPowerUp = Random.Range(0, 7);
-            Instantiate(powerUps[randomPowerUp], posToSpawn, Quaternion.identity);
+            BalancedSpawn();
             yield return new WaitForSeconds(Random.Range(3f,8f));
         }
     }
